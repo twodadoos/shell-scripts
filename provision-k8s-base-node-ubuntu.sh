@@ -2,25 +2,28 @@
 
 ##################################################################################################################
 #
-# This script installs and configures prerequisites for a Kubernetes cluster node, be it a control or worker node.
-# Latest, stable Kubernetes version is used. This script does not do everything required to have an operational
-# node, or cluster. More steps are still needed to instantiate the host as a control or worker node. For instance,
-# if this host is to be a control node, another step would include using 'kubeadm init', such as follows:
-# 
-# sudo kubeadm init --control-plane-endpoint=controlNode.example.com
-# 
-# As well, a network plugin must also be deployed, such as follows: 
+# This script installs and configures the prerequisites for a Kubernetes node (control plane or worker).
+# It installs the latest stable Kubernetes packages but does *not* fully provision a functional node or cluster.
 #
-# kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
+# After running this script, additional steps are required depending on the node's role:
 #
-# If this host is to be a worker node, joined to the control node, then the 'kubeadm join' command still needs
-# to be run from said worker node, such as in the following example:
-# 
-#  sudo kubeadm join controlNode.example.com:6443 --token xt7rtu1.kjer9y5pl4klqxh1 \
-#   --discovery-token-ca-cert-hash sha256:0876aa7f45mxhd93wwasf8e6164r6932fr9173c35871a36aw3q
+# Control Plane:
+#   Initialize the control plane, for example:
+#     sudo kubeadm init --control-plane-endpoint=controlNode.example.com
 #
-# More configuration and validation is required, but this script covers most of it for an Ubuntu host system.
-###################################################################################################################
+#   Deploy a CNI plugin, such as Calico:
+#     kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
+#
+# Worker Node:
+#   Join the node to the existing control plane using the join command provided by kubeadm.
+#   Example:
+#     sudo kubeadm join controlNode.example.com:6443 --token xt7rtu1.kjer9y5pl4klqxh1 \
+#       --discovery-token-ca-cert-hash sha256:0876aa7f45mxhd93wwasf8e6164r6932fr9173c35871a36aw3q
+#
+# This script prepares most required components for Ubuntu, but additional configuration and validation
+# are still needed to complete the cluster setup.
+#
+##################################################################################################################
 
 set -euo pipefail
 
