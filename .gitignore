@@ -1,0 +1,22 @@
+# Ignore editor swap & backup files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore OS-specific files
+.DS_Store      # macOS
+Thumbs.db      # Windows
+
+# Ignore logs
+*.log
+
+# Ignore compiled files 
+*.o
+*.out
+
+# Ignore Python cache 
+__pycache__/
+*.pyc
+
