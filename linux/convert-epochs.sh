@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
 #############################################
-################### Usage ###################
 #
-#      ./convert-epoch.sh input.log
+# Convert Unix time timestamps in application 
+# log files to human readable format
+#
+#  Usage:
+#  
+#  ./convert-epoch.sh input.log
 #
 #############################################
 
